@@ -1,0 +1,47 @@
+<!-- Import Polymer -->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../core-ajax/core-ajax.html">
+
+<!-- url-shortener - custom element -->
+<polymer-element name="url-shortener" attributes="slength, configURL">
+
+  <template>
+    <core-ajax url="{{configURL}}" auto response="{{response}}"></core-ajax>
+    <input type="text" id="originURL" />
+    <button on-click="{{shorten}}">Submit URL</button><br /><br />
+    <div hidden?="{{!shortenedURL}}">
+      Link: <a href="{{response.host}}{{shortenedURL}}">{{response.host}}{{shortenedURL}}</a>
+    </div>
+    <div hidden?="{{!error}}">{{error}}</div>
+  </template>
+
+  <script>
+    Polymer('url-shortener', {
+      shorten: function() {
+        var startPoint = 2;
+        if (!this.response) {
+          this.shortenedURL = '';
+          this.error = 'Error. Unable to load the configuration file.';
+        } else if (!this.$.originURL.value) {
+          this.shortenedURL = '';
+          this.error = 'You must specify a URL.';
+        } else {
+          length = startPoint + (this.slength > 0 ? parseInt(this.slength) : this.response.slength);
+          var sURL = Math.random().toString(36).substring(startPoint, length);
+          // TO DO - AJAX call the endpoint (this.response.endPoint) 
+          // passing this.$.originURL.value and the sURL probably using
+          // polymer-ajax
+          var result = true;
+          if (result) {
+            this.shortenedURL = sURL;
+            this.error = '';
+          } else {
+            this.error = 'Unable to save the result to the database.';
+          }
+        }
+        this.$.originURL.value = '';
+      }
+    });
+  </script>
+
+</polymer-element>
