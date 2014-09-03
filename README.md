@@ -26,10 +26,20 @@ Or [download as ZIP](https://github.com/jordifebrer/url-shortener/archive/master
     <link rel="import" href="bower_components/url-shortener/dist/url-shortener.html">
     ```
 
-3. Start using it!
+3. Prepare your config.json
+    
+    ```json
+    {
+        "host": "my_host",
+        "endPoint": "my_end_point",
+        "slength": "12"
+    }
+    ```
+
+4. Start using it!
 
     ```html
-    <url-shortener></url-shortener>
+    <url-shortener configURL="config.json"></url-shortener>
     ```
 
 ## Options
@@ -37,7 +47,7 @@ Or [download as ZIP](https://github.com/jordifebrer/url-shortener/archive/master
 Attribute     | Options     | Default   | Description
 ---           | ---         | ---       | ---
 `slength`     | *integer*   | ``        | String length
-`configURL`   | *string*    | ``        | Config file URL
+`configURL`   | *string*    | ``        | Config file URL (mandatory)
 
 
 ## Development
